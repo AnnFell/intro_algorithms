@@ -4,8 +4,6 @@ let numbersMax;
 let numbers;
 let numberToGuess;
 
-
-// console.log(numberToGuess);
 const inputMax = document.querySelector('input[name=max]');
 const inputNumberToGuess = document.querySelector('input[name=choice]');
 const button = document.querySelector('button');
@@ -30,14 +28,9 @@ function getValues() {
 }
 
 function howManyGuesses(number) {
-    let result = 0;
-    while (number > 1) {
-        number = number - (number / 2);
-        result++;
-    }
+    let result = Math.floor(Math.log2(number)) + 1;
     inputDiv.innerHTML = `<p>Thank you for your input: you want to let the computer find the number ${numberToGuess} 
-    between 1 and ${numbersMax}!<br>
-    Using binary search, it will take the computer at most ${result} guesses! <br>
+    between 1 and ${numbersMax}!<br>Using binary search, it will take the computer at most ${result} guesses! <br>
     Let's see what the result is...</p>`;
 }
 
@@ -50,14 +43,14 @@ function binarySearchNum(target) {
     while (numbers[guess] !== target) {
 
         guess = Math.floor((max - min) / 2) + min;
-        resultDiv.innerHTML += `<p>The computer guesses: ${numbers[guess]}</p>`;
+        resultDiv.innerHTML += `The computer guesses: ${numbers[guess]}<br>`;
 
         if (numbers[guess] > target) {
-            resultDiv.innerHTML += `<p>No, too high</p>`;
+            resultDiv.innerHTML += `No, too high<br>`;
             max = guess - 1;
             numAttempts++;
-        } else if(numbers[guess] < target) {
-            resultDiv.innerHTML += `<p>No, too low</p>`;
+        } else if (numbers[guess] < target) {
+            resultDiv.innerHTML += `No, too low<br>`;
             min = guess + 1;
             numAttempts++;
         }
